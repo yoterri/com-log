@@ -47,6 +47,25 @@ class Logger extends zLogger
             $extra = array($extra);
         }
 
+        $backtrace = debug_backtrace();
+
+        #
+        $caller = $backtrace[1];
+        if (isset($caller['file'])) {
+            $file = $caller['file'];
+            $file = str_replace(dirname(dirname(APPLICATION_PATH)), '', $file);
+
+            if (isset($caller['line']))
+                $file .= " ({$caller['line']})";
+
+            $extra['caller'] = $file;
+        }
+
+        $fn = isset($backtrace[2]) ? $backtrace[2] : [];
+        if(isset($fn['function'])) {
+            $extra['function'] = $fn['function'];
+        }
+
         if(is_object($message))
         {
             if($message instanceof \exception)
@@ -67,9 +86,14 @@ class Logger extends zLogger
                     $extra[] = $message->toArray();
                     $message = 'Class: ' . get_class($message);
                 }
-                elseif(!method_exists($message, '__toString'))
+                elseif(method_exists($message, '__toString'))
                 {
                     $extra[] = (string)$message;
+                    $message = 'Class: ' . get_class($message);
+                }
+                else
+                {
+                    $extra[] = get_class($message);
                     $message = 'Class: ' . get_class($message);
                 }
             }
@@ -92,13 +116,83 @@ class Logger extends zLogger
     /**
      * @param string $message
      * @param array|Traversable $extra
-     * @param string $ref
+     * @return Logger
+     */
+    public function emerg($message, $extra = [], $ref = null)
+    {
+        return $this->log(self::EMERG, $message, $extra, $ref);
+    }
+
+    /**
+     * @param string $message
+     * @param array|Traversable $extra
+     * @return Logger
+     */
+    public function alert($message, $extra = [], $ref = null)
+    {
+        return $this->log(self::ALERT, $message, $extra, $ref);
+    }
+
+    /**
+     * @param string $message
+     * @param array|Traversable $extra
+     * @return Logger
+     */
+    public function crit($message, $extra = [], $ref = null)
+    {
+        return $this->log(self::CRIT, $message, $extra, $ref);
+    }
+
+    /**
+     * @param string $message
+     * @param array|Traversable $extra
+     * @return Logger
+     */
+    public function err($message, $extra = [], $ref = null)
+    {
+        return $this->log(self::ERR, $message, $extra, $ref);
+    }
+
+    /**
+     * @param string $message
+     * @param array|Traversable $extra
+     * @return Logger
+     */
+    public function warn($message, $extra = [], $ref = null)
+    {
+        return $this->log(self::WARN, $message, $extra, $ref);
+    }
+
+    /**
+     * @param string $message
+     * @param array|Traversable $extra
+     * @return Logger
+     */
+    public function notice($message, $extra = [], $ref = null)
+    {
+        return $this->log(self::NOTICE, $message, $extra, $ref);
+    }
+
+    /**
+     * @param string $message
+     * @param array|Traversable $extra
+     * @return Logger
+     */
+    public function info($message, $extra = [], $ref = null)
+    {
+        return $this->log(self::INFO, $message, $extra, $ref);
+    }
+
+    /**
+     * @param string $message
+     * @param array|Traversable $extra
      * @return Logger
      */
     public function debug($message, $extra = [], $ref = null)
     {
         return $this->log(self::DEBUG, $message, $extra, $ref);
     }
+
 
 
     /**
@@ -111,7 +205,7 @@ class Logger extends zLogger
     {
         return $this->log(self::ERR, $message, $extra, $ref);
     }
-    
+
 
     /**
      * @param string $message

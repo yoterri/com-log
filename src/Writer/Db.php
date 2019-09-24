@@ -166,7 +166,7 @@ class Db extends AbstractWriter
 
         if(isset($_SESSION) && count($_SESSION))
         {
-            $in['session'] = print_r($_SESSION, 1);
+            $in['session'] = json_encode($_SESSION);
         }
 
         if(isset($_COOKIE) && count($_COOKIE))
