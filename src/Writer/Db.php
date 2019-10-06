@@ -118,7 +118,7 @@ class Db extends AbstractWriter
             }
             else
             {
-                $in['extra'] = print_r($event['extra'], 1);
+                $in['extra'] = json_encode($event['extra']);
             }
         }
 
