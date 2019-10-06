@@ -131,7 +131,7 @@ class Db extends AbstractWriter
         $headers = $this->_getHeaders();
         if($headers)
         {
-            $in['headers'] = print_r($headers, 1);
+            $in['headers'] = json_encode($headers);
         }
         
         if(isset($_SERVER['REQUEST_URI']))
@@ -156,12 +156,12 @@ class Db extends AbstractWriter
 
         if(isset($_GET) && count($_GET))
         {
-            $in['get'] = print_r($_GET, 1);
+            $in['get'] = json_encode($_GET);
         }
 
         if(isset($_FILES) && count($_FILES))
         {
-            $in['file'] = print_r($_FILES, 1);
+            $in['file'] = json_encode($_FILES);
         }
 
         if(isset($_SESSION) && count($_SESSION))
@@ -171,12 +171,12 @@ class Db extends AbstractWriter
 
         if(isset($_COOKIE) && count($_COOKIE))
         {
-            $in['cookies'] = print_r($_COOKIE, 1);
+            $in['cookies'] = json_encode($_COOKIE);
         }
 
         if(isset($_POST) && count($_POST))
         {
-            $in['post'] = print_r($_POST, 1);
+            $in['post'] = json_encode($_POST);
         }
 
         $this->getLastId = $this->dbTable->doInsert($in);
