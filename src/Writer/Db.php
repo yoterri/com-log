@@ -125,7 +125,7 @@ class Db extends AbstractWriter
         $body = file_get_contents('php://input');
         if(!empty($body))
         {
-            $in['body'] = $body;
+            $in['body'] = json_encode($body);
         }
 
         $headers = $this->_getHeaders();
