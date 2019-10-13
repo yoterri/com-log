@@ -153,6 +153,10 @@ class Db extends AbstractWriter
         {
             $in['method'] = $_SERVER['REQUEST_METHOD'];
         }
+        else
+        {
+            $in['method'] = (php_sapi_name() === 'cli') ? 'CONSOLE' : 'UNKNOWN';
+        }
 
         if(isset($_GET) && count($_GET))
         {
