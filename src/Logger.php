@@ -42,7 +42,7 @@ class Logger extends zLogger
             }
         }
 
-        if($encoded)
+        if($extra)
         {
             $encoded = $this->_normalize($extra);
             $extra = ['debug_value' => $encoded];
