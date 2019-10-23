@@ -42,8 +42,16 @@ class Logger extends zLogger
             }
         }
 
-        $encoded = $this->_normalize($extra);
-        $extra = ['debug_value' => $encoded];
+        if($encoded)
+        {
+            $encoded = $this->_normalize($extra);
+            $extra = ['debug_value' => $encoded];
+        }
+        else
+        {
+            $extra = [];
+        }
+
         $backtrace = debug_backtrace();
 
         #
