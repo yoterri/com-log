@@ -42,11 +42,7 @@ class Logger extends zLogger
             }
         }
 
-        if(!is_array($extra))
-        {
-            $extra = array($extra);
-        }
-
+        $extra = ['debug_value' => $extra];
         $backtrace = debug_backtrace();
 
         #
