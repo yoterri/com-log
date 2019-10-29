@@ -58,7 +58,11 @@ class Logger extends zLogger
         $caller = $backtrace[1];
         if (isset($caller['file'])) {
             $file = $caller['file'];
-            $file = str_replace(dirname(dirname(APPLICATION_PATH)), '', $file);
+            
+            if(defined(APPLICATION_PATH)) 
+            {
+                $file = str_replace(dirname(dirname(APPLICATION_PATH)), '', $file);
+            }
 
             if (isset($caller['line']))
                 $file .= " ({$caller['line']})";
