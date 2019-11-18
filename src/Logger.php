@@ -59,7 +59,7 @@ class Logger extends zLogger
         if (isset($caller['file'])) {
             $file = $caller['file'];
             
-            if(defined(APPLICATION_PATH)) 
+            if(defined('APPLICATION_PATH')) 
             {
                 $file = str_replace(dirname(dirname(APPLICATION_PATH)), '', $file);
             }
