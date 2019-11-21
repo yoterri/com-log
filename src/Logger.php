@@ -110,6 +110,10 @@ class Logger extends zLogger
                 }
             }
         }
+        elseif(is_array($message))
+        {
+            $message = print_r($message, 1);
+        }
 
         if(strlen($message) > 250)
         {
