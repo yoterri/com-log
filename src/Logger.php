@@ -43,17 +43,19 @@ class Logger extends zLogger
         }
 
         $type = gettype($extra);
-        $debugValue = $this->_normalize($extra);
 
-        $extra = [
-            'debug_type'  => $type,
+        $tmp = [
+            'debug_type' => $type,
         ];
 
         if('object' == $type) {
-            $extra['class'] = get_class($extra);
+            $tmp['debug_class'] = get_class($extra);
         }
 
-        $extra['debug_value'] = $debugValue;
+        $tmp['debug_value'] = $this->_normalize($extra);
+
+        $extra = $tmp;
+        unset($tmp);
 
         $backtrace = debug_backtrace();
 
