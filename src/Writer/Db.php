@@ -3,10 +3,10 @@
 namespace Com\Component\Log\Writer;
 
 use Traversable;
-use Zend\Db\Adapter\Adapter;
-use Zend\Log\Exception;
-use Zend\Log\Formatter\Db as DbFormatter;
-use Zend\Log\Writer\AbstractWriter;
+use Laminas\Db\Adapter\Adapter;
+use Laminas\Log\Exception;
+use Laminas\Log\Formatter\Db as DbFormatter;
+use Laminas\Log\Writer\AbstractWriter;
 
 use Com\Db\AbstractDb;
 

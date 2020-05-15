@@ -2,7 +2,7 @@
 
 namespace Com\Component\Log;
 
-use Zend\Log\Logger as zLogger;
+use Laminas\Log\Logger as zLogger;
 
 class Logger extends zLogger
 {
